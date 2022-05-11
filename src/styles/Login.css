@@ -22,3 +22,7 @@ p {
 strong {
     color: #968778;
 }
+
+.btn-signup {
+    cursor: pointer;
+}
