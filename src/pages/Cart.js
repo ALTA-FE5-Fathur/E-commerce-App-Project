@@ -105,7 +105,7 @@ function Cart() {
                             <h4>Total Harga (3 Produk)</h4>
                             <h4><b>Rp500.000</b></h4>
                         </div>
-                        <button type="button" class="btn btn-primary w-100 my-2 rounded">Buat Pesanan</button>
+                        <button type="button" className="btn btn-primary w-100 my-2 rounded">Buat Pesanan</button>
                     </div>
                 </div>
             </div>
