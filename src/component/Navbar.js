@@ -10,9 +10,9 @@ function NavbarComponent() {
             <div className="container">
                 {!localStorage.getItem("token") ?
                     <h6 className="text-end">
-                        <span onClick={() => {
+                        <span className="cursor-klik" onClick={() => {
                             navigate('/login')
-                        }}>Masuk</span> / <span onClick={() => {
+                        }}>Masuk</span> / <span className="cursor-klik" onClick={() => {
                             navigate('/signup');
                         }}>Daftar</span></h6>
                     :
@@ -25,7 +25,9 @@ function NavbarComponent() {
 
                 <div className="row align-items-center">
                     <div className="col-2">
-                        <h1>Kishop</h1>
+                        <h1 className="cursor-klik" onClick={() => {
+                            navigate("/");
+                        }}>Kishop</h1>
                     </div>
                     <div className="col-9 p-0">
                         <form>
@@ -33,7 +35,9 @@ function NavbarComponent() {
                         </form>
                     </div>
                     <div className="col-1">
-                        <img src={buy} alt="cart" />
+                        <img src={buy} alt="cart" className="cursor-klik" onClick={() => {
+                            navigate('/cart');
+                        }} />
                     </div>
                 </div>
             </div>

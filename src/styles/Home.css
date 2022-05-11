@@ -1,5 +1,5 @@
-.rounded {
-    border-radius: 1.25rem!important;
+.rounded-kategori {
+    border-radius: 1.25rem !important;
 }
 
 .card {
@@ -14,9 +14,14 @@
     color: #5E4F45;
 }
 
-.rounded-top {
-    border-top-left-radius: 1.25rem!important;
-    border-top-right-radius: 1.25rem!important;
+.rounded-top-kategori {
+    border-top-left-radius: 1.25rem !important;
+    border-top-right-radius: 1.25rem !important;
+}
+
+.rounded-top-img {
+    border-top-left-radius: .75rem !important;
+    border-top-right-radius: .75rem !important;
 }
 
 .col-md-1 {

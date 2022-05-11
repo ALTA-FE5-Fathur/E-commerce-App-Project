@@ -2,7 +2,7 @@ import axios from "axios";
 import { Alert } from "react-bootstrap";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Signup.css";
+import "../styles/SignUp.css";
 
 function SignUp() {
     const [name, setName] = useState("");
