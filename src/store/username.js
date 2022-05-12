@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const usernameSlice = createSlice({
     name: 'usernames',
     initialState: {
-        usernames: 'user1'
+        usernames: []
     },
     reducers: {
         setGlobalUsername: (state, action) => {

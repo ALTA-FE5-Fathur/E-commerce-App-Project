@@ -15,7 +15,7 @@ function EditProfile() {
         if (!localStorage.getItem("token")) {
             navigate('/login');
         } else {
-            axios.get('http://54.179.1.246:8000/users/user1', {
+            axios.get('http://54.179.1.246:8000/users/user2', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
                 .then((data) => {
@@ -39,7 +39,7 @@ function EditProfile() {
             hp
         }
 
-        axios.put('http://54.179.1.246:8000/users/user1', body, {
+        axios.put('http://54.179.1.246:8000/users/user2', body, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then((data) => {
