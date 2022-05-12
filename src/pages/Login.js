@@ -3,6 +3,8 @@ import { Alert } from "react-bootstrap";
 import axios from "axios";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setGlobalUsername } from "../store/username"
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -11,6 +13,8 @@ function Login() {
     const [message, setMessage] = useState(null);
 
     const navigate = useNavigate();
+
+    const dispacth = useDispatch();
 
     const handleSubmit = () => {
         const body = {
@@ -44,6 +48,7 @@ function Login() {
                         <form>
                             <input type="text" autoComplete="off" value={username} className="form-control my-4 rounded" placeholder="Username" onChange={(e) => {
                                 setUsername(e.target.value);
+                                dispacth(setGlobalUsername(e.target.value));
                             }} />
                             <input type="password" value={password} className="form-control my-4 rounded" placeholder="Password" onChange={(e) => {
                                 setPassword(e.target.value);
