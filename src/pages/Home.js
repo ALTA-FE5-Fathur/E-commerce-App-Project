@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Home.css";
-import contoh from "../images/Contoh.png";
 import promo from "../images/Promo.jpg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
     const [categories, setCategories] = useState('');
@@ -10,6 +10,8 @@ function Home() {
 
     const dataCategories = Array.from(categories);
     const dataPosts = Array.from(posts);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://54.179.1.246:8000/categories', {
@@ -71,15 +73,10 @@ function Home() {
             </div>
             <div className="row border rounded shadow-sm">
                 <h1>Ini untukmu</h1>
-                <div className="card p-0 m-3 rounded shadow-sm">
-                    <img src={contoh} className="card-img-top rounded-top-img" alt="..." />
-                    <div className="card-body">
-                        <h5 className="card-title">Nineten Haze Vision</h5>
-                        <h3 className="card-text"><strong>Rp125.000</strong></h3>
-                    </div>
-                </div>
                 {dataPosts.map((el, i) => (
-                    <div className="card p-0 m-3 rounded shadow-sm" key={i}>
+                    <div className="card p-0 m-3 rounded shadow-sm cursor-klik" key={i} onClick={() => {
+                        navigate(`/detail/${el.slug}`);
+                    }}>
                         <img src={require(`../images/product/kenziolondon.jpg`)} className="card-img-top rounded-top-img" alt="..." />
                         <div className="card-body">
                             <h5 className="card-title">{el.name}</h5>

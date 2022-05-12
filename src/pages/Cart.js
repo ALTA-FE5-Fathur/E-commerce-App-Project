@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Cart.css";
 import contoh from "../images/Contoh.png";
 import hapus from "../images/Delete.png";
 
 function Cart() {
+    const [quantity, setQuantity] = useState(1);
+
+    const increment = () => {
+        let temp = quantity + 1;
+        setQuantity(temp);
+    }
+
+    const decrement = () => {
+        let temp = quantity - 1;
+        setQuantity(temp);
+    }
+
     return (
         <div className="container">
             <div className="border rounded shadow-sm my-5 px-5">
@@ -28,9 +40,9 @@ function Cart() {
                                 <div className="col-xl-5 my-auto">
                                     <div className="row">
                                         <div className="d-flex col-9 p-0">
-                                            <button type="button" className="btn btn-danger btn-number">-</button>
-                                            <input type="text" className="form-control quantity-size" value="1" min="1" />
-                                            <button type="button" className="btn btn-success btn-number">+</button>
+                                            <button type="button" className="btn btn-danger btn-number" onClick={() => decrement()} >-</button>
+                                            <input type="text" className="form-control quantity-size" value={quantity} min="1" />
+                                            <button type="button" className="btn btn-success btn-number" onClick={() => increment()} >+</button>
                                         </div>
                                         <div className="col-3 my-auto">
                                             <img src={hapus} className="btn-delete ms-3" alt="..." />
