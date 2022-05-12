@@ -8,6 +8,10 @@ function ProfileUser() {
     const [name, setName] = useState('');
     const [hp, setHp] = useState('');
     const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    // const [city, setCity] = useState('');
+    // const [country, setCountry] = useState('');
+    // const [zipCode, setZipCore] = useState('');
 
     const navigate = useNavigate();
 
@@ -28,15 +32,18 @@ function ProfileUser() {
                     console.log(err);
                 })
 
-            // axios.get('http://54.179.1.246:8000/users/address', {
-            //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            // })
-            //     .then((data) => {
-            //         console.log(data);
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     })
+            axios.get('http://54.179.1.246:8000/users/address', {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            })
+                .then((data) => {
+                    console.log(data.data.data);
+                    // setCity(data.data.data.city);
+                    // setCountry(data.data.data.country);
+                    // setZipCore(data.data.data.zip_code);
+                })
+                .catch((err) => {
+                    console.log(err, ' ==> error address');
+                })
         }
 
     }, [navigate]);
@@ -66,7 +73,7 @@ function ProfileUser() {
                         </tr>
                         <tr>
                             <td><h5>Address</h5></td>
-                            <td>Jalan Bunga Indah VIII No. 7 Kelurahan Merdeka Kecamatan Penari Kota Yogyakarta</td>
+                            <td>{address}</td>
                         </tr>
                     </table>
                 </div>
