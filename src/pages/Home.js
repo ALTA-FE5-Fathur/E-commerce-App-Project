@@ -4,8 +4,7 @@ import contoh from "../images/Contoh.png";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-    const navigate = useNavigate();
-
+    
     return (
         <div className="container">
             <div className="row my-4">

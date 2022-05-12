@@ -9,6 +9,8 @@ import SignUp from './pages/SignUp';
 import Cart from './pages/Cart';
 import ProductDetail from './pages/ProductDetail';
 import Confirmation from './pages/Confirmation';
+import ProfileUser from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path='/detail' element={<ProductDetail />} />
+        <Route path='/profil' element={<ProfileUser />} />
+        <Route path='/profil/edit' element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );
