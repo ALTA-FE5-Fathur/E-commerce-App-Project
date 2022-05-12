@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Home.css";
 import contoh from "../images/Contoh.png";
+import promo from "../images/Promo.jpg";
 import axios from "axios";
 
 function Home() {
@@ -63,8 +64,9 @@ function Home() {
                     </div>
                 </div>
                 <div className="col-md-1"></div>
-                <div className="col-md-5 border rounded shadow-sm">
-                    <h1>Ini banner promo</h1>
+                <div className="col-md-5 border rounded shadow-sm p-0 overflow-hidden">
+                    {/* <h1>Ini banner promo</h1> */}
+                    <img src={promo} className="card-img-top rounded-top-img w-100 h-100" alt="..." />
                 </div>
             </div>
             <div className="row border rounded shadow-sm">
