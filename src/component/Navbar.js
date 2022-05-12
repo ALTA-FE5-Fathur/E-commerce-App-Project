@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import buy from "../images/Buy.png";
+import profilePicture from "../images/Profile.png";
 import "./Navbar.css"
 
 function NavbarComponent() {
@@ -29,14 +30,17 @@ function NavbarComponent() {
                             navigate("/");
                         }}>Kishop</h1>
                     </div>
-                    <div className="col-9 p-0">
+                    <div className="col-8 p-0">
                         <form>
                             <input type="text" className="form-control rounded-pill" />
                         </form>
                     </div>
-                    <div className="col-1">
+                    <div className="col-2 text-end">
                         <img src={buy} alt="cart" className="cursor-klik" onClick={() => {
                             navigate('/cart');
+                        }} />
+                        <img src={profilePicture} alt="cart" className="cursor-klik" onClick={() => {
+                            navigate('/profil');
                         }} />
                     </div>
                 </div>
