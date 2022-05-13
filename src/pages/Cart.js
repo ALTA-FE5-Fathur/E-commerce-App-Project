@@ -7,6 +7,7 @@ import axios from "axios";
 function Cart() {
     // const [Quantity, setQuantity] = useState();
     const [keranjang, setKeranjang] = useState([]);
+    let result = 0;
 
     useEffect(() => {
         axios.get('http://54.179.1.246:8000/users/carts', {
@@ -21,31 +22,62 @@ function Cart() {
 
     }, [])
 
-    const increment = (idBarang) => {
-        // const body = {
-        //     ProductID: idBarang,
-        //     Quantity
-        // }
+    const increment = (idBarang, qty) => {
+        const body = {
+            ProductID: idBarang,
+            Quantity: qty
+        }
 
-        // axios.put(`http://54.179.1.246:8000/users/carts/${idBarang}`, body, {
-        //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        // })
-        //     .then((data) => {
-        //         console.log(data);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err, idBarang, ' ==> error dari increment');
-        //     })
+        axios.put(`http://54.179.1.246:8000/users/carts/${idBarang}`, body, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then(() => {
+                return axios.get('http://54.179.1.246:8000/users/carts', {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+                })
+                    .then((data) => {
+                        setKeranjang(data.data.data);
+                    })
+            })
+            .catch((err) => {
+                console.log(err, idBarang, ' ==> error dari increment');
+            })
+    }
+
+    const decrement = (idBarang, qty) => {
+        const body = {
+            ProductID: idBarang,
+            Quantity: qty
+        }
+
+        axios.put(`http://54.179.1.246:8000/users/carts/${idBarang}`, body, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then(() => {
+                return axios.get('http://54.179.1.246:8000/users/carts', {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+                })
+                    .then((data) => {
+                        setKeranjang(data.data.data);
+                    })
+            })
+            .catch((err) => {
+                console.log(err, idBarang, ' ==> error dari increment');
+            })
     }
 
     const deleteItems = (idBarang) => {
         axios.delete(`http://54.179.1.246:8000/users/carts/${idBarang}`, {
-            headers: { 
-                token: localStorage.getItem("token")
-             }
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then((data) => {
                 console.log(data, 'dari deleteitems');
+                return axios.get('http://54.179.1.246:8000/users/carts', {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+                })
+                    .then((data) => {
+                        setKeranjang(data.data.data);
+                    })
             })
             .catch((err) => {
                 console.log(err, '==> err dari deleteitems');
@@ -74,7 +106,7 @@ function Cart() {
 
                 {/* Pilih Pesanan */}
                 {keranjang.map((el, i) => (
-                    <div className="border rounded shadow-sm mb-4 p-3">
+                    <div className="border rounded shadow-sm mb-4 p-3" key={i} >
                         <div className="row mb-3">
                             <div className="col-5">
                                 <input type="checkbox" className="me-3" />
@@ -89,12 +121,12 @@ function Cart() {
                                     <div className="col-xl-5 my-auto">
                                         <div className="row">
                                             <div className="d-flex col-9 p-0">
-                                                <button type="button" className="btn btn-danger btn-number" >-</button>
+                                                <button type="button" className="btn btn-danger btn-number" onClick={() => decrement(el.ID, el.Quantity - 1)} >-</button>
                                                 <input type="text" className="form-control quantity-size" value={el.Quantity} min="1" />
-                                                <button type="button" className="btn btn-success btn-number" onClick={() => increment(el.ProductID)} >+</button>
+                                                <button type="button" className="btn btn-success btn-number" onClick={() => increment(el.ID, el.Quantity + 1)} >+</button>
                                             </div>
                                             <div className="col-3 my-auto">
-                                                <img src={hapus} className="btn-delete ms-3 cursor-klik" alt="..." onClick={() => deleteItems(el.ProductID)} />
+                                                <img src={hapus} className="btn-delete ms-3 cursor-klik" alt="..." onClick={() => deleteItems(el.ID)} />
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +145,9 @@ function Cart() {
                         <h4>Rincian Pembayaran</h4>
                         <div className="d-flex justify-content-between">
                             <h4>Total Harga (3 Produk)</h4>
-                            <h4><b>Rp500.000</b></h4>
+                            <h4><b>Rp{keranjang.map((el, i) => {
+                                result += (el.Price*el.Quantity);
+                            })}{makeRupiah(result)}</b></h4>
                         </div>
                         <button type="button" className="btn btn-primary w-100 my-2 rounded">Buat Pesanan</button>
                     </div>

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ProductDetail.css";
 import contoh from "../images/Contoh.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function ProductDetail() {
     const [detail, setDetail] = useState('');
-    const [product_id, setProductId] = useState();
-    const [quantity, setQuantity] = useState(1);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const params = useParams();
 
@@ -23,10 +21,10 @@ function ProductDetail() {
             })
     }, [params]);
 
-    const addToCart = () => {
+    const addToCart = (pid, qty) => {
         const body = {
-            product_id,
-            quantity
+            product_id: pid,
+            quantity: qty
         }
 
         axios.post('http://54.179.1.246:8000/users/carts', body, {
@@ -62,10 +60,8 @@ function ProductDetail() {
                     <div className="col text-center">
                         <img src={contoh} className="img-fluid img-detail" alt="..." />
                         <button type="button" className="btn btn-primary w-100 my-2 rounded" onClick={() => {
-                            setProductId(detail.id);
-                            setQuantity(1);
-                            addToCart();
-                            console.log(quantity, product_id)
+                            addToCart(detail.id, 1);
+                            navigate('/cart');
                         }}>Add to Cart</button>
                     </div>
                     <div className="col">

@@ -15,7 +15,7 @@ function EditProfile() {
         if (!localStorage.getItem("token")) {
             navigate('/login');
         } else {
-            axios.get('http://54.179.1.246:8000/users/user2', {
+            axios.get(`http://54.179.1.246:8000/users/${localStorage.getItem('username')}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
                 .then((data) => {
