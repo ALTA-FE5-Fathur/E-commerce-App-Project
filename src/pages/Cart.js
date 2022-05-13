@@ -1,19 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Cart.css";
 import contoh from "../images/Contoh.png";
 import hapus from "../images/Delete.png";
+import axios from "axios";
 
 function Cart() {
-    const [quantity, setQuantity] = useState(1);
+    // const [Quantity, setQuantity] = useState();
+    const [keranjang, setKeranjang] = useState([]);
 
-    const increment = () => {
-        let temp = quantity + 1;
-        setQuantity(temp);
+    useEffect(() => {
+        axios.get('http://54.179.1.246:8000/users/carts', {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then((data) => {
+                setKeranjang(data.data.data);
+            })
+            .catch((err) => {
+                console.log(err, ' ==> error cart');
+            })
+
+    }, [])
+
+    const increment = (idBarang) => {
+        // const body = {
+        //     ProductID: idBarang,
+        //     Quantity
+        // }
+
+        // axios.put(`http://54.179.1.246:8000/users/carts/${idBarang}`, body, {
+        //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        // })
+        //     .then((data) => {
+        //         console.log(data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err, idBarang, ' ==> error dari increment');
+        //     })
     }
 
-    const decrement = () => {
-        let temp = quantity - 1;
-        setQuantity(temp);
+    const deleteItems = (idBarang) => {
+        axios.delete(`http://54.179.1.246:8000/users/carts/${idBarang}`, {
+            headers: { 
+                token: localStorage.getItem("token")
+             }
+        })
+            .then((data) => {
+                console.log(data, 'dari deleteitems');
+            })
+            .catch((err) => {
+                console.log(err, '==> err dari deleteitems');
+            })
+    }
+
+    const makeRupiah = (rupiah) => {
+        let text = rupiah.toString();
+        let result = '';
+        for (let i = text.length - 1; i >= 0; i--) {
+            result += text[i];
+            if (result.length === 3) {
+                result += '.';
+            }
+        }
+        return result.split("").reverse().join("");
     }
 
     return (
@@ -25,89 +73,39 @@ function Cart() {
                 </div>
 
                 {/* Pilih Pesanan */}
-                <div className="border rounded shadow-sm mb-4 p-3">
-                    <div className="row mb-3">
-                        <div className="col-5">
-                            <input type="checkbox" className="me-3" />
-                            <img src={contoh} className="img-cart img-fluid" alt="..." />
-                        </div>
-                        <div className="col-7 my-auto">
-                            <div className="row mx-3">
-                                <div className="col-xl-7 my-auto">
-                                    <h5 className="card-title">Nineten Haze Vision</h5>
-                                    <h3 className="card-text mb-3"><strong>Rp125.000</strong></h3>
-                                </div>
-                                <div className="col-xl-5 my-auto">
-                                    <div className="row">
-                                        <div className="d-flex col-9 p-0">
-                                            <button type="button" className="btn btn-danger btn-number" onClick={() => decrement()} >-</button>
-                                            <input type="text" className="form-control quantity-size" value={quantity} min="1" />
-                                            <button type="button" className="btn btn-success btn-number" onClick={() => increment()} >+</button>
-                                        </div>
-                                        <div className="col-3 my-auto">
-                                            <img src={hapus} className="btn-delete ms-3" alt="..." />
+                {keranjang.map((el, i) => (
+                    <div className="border rounded shadow-sm mb-4 p-3">
+                        <div className="row mb-3">
+                            <div className="col-5">
+                                <input type="checkbox" className="me-3" />
+                                <img src={contoh} className="img-cart img-fluid" alt="..." />
+                            </div>
+                            <div className="col-7 my-auto">
+                                <div className="row mx-3">
+                                    <div className="col-xl-7 my-auto">
+                                        <h5 className="card-title">{el.Name}</h5>
+                                        <h3 className="card-text mb-3"><strong>Rp{makeRupiah(el.Price)}</strong></h3>
+                                    </div>
+                                    <div className="col-xl-5 my-auto">
+                                        <div className="row">
+                                            <div className="d-flex col-9 p-0">
+                                                <button type="button" className="btn btn-danger btn-number" >-</button>
+                                                <input type="text" className="form-control quantity-size" value={el.Quantity} min="1" />
+                                                <button type="button" className="btn btn-success btn-number" onClick={() => increment(el.ProductID)} >+</button>
+                                            </div>
+                                            <div className="col-3 my-auto">
+                                                <img src={hapus} className="btn-delete ms-3 cursor-klik" alt="..." onClick={() => deleteItems(el.ProductID)} />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="row mb-3">
-                        <div className="col-5">
-                            <input type="checkbox" className="me-3" />
-                            <img src={contoh} className="img-cart img-fluid" alt="..." />
-                        </div>
-                        <div className="col-7 my-auto">
-                            <div className="row mx-3">
-                                <div className="col-xl-7 my-auto">
-                                    <h5 className="card-title">Nineten Haze Vision</h5>
-                                    <h3 className="card-text mb-3"><strong>Rp125.000</strong></h3>
-                                </div>
-                                <div className="col-xl-5 my-auto">
-                                    <div className="row">
-                                        <div className="d-flex col-9 p-0">
-                                            <button type="button" className="btn btn-danger btn-number">-</button>
-                                            <input type="text" className="form-control quantity-size" value="1" min="1" />
-                                            <button type="button" className="btn btn-success btn-number">+</button>
-                                        </div>
-                                        <div className="col-3 my-auto">
-                                            <img src={hapus} className="btn-delete ms-3" alt="..." />
-                                        </div>
-                                    </div>
-                                </div>
+                ))}
 
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row mb-3">
-                        <div className="col-5">
-                            <input type="checkbox" className="me-3" />
-                            <img src={contoh} className="img-cart img-fluid" alt="..." />
-                        </div>
-                        <div className="col-7 my-auto">
-                            <div className="row mx-3">
-                                <div className="col-xl-7 my-auto">
-                                    <h5 className="card-title">Nineten Haze Vision</h5>
-                                    <h3 className="card-text mb-3"><strong>Rp125.000</strong></h3>
-                                </div>
-                                <div className="col-xl-5 my-auto">
-                                    <div className="row">
-                                        <div className="d-flex col-9 p-0">
-                                            <button type="button" className="btn btn-danger btn-number">-</button>
-                                            <input type="text" className="form-control quantity-size" value="1" min="1" />
-                                            <button type="button" className="btn btn-success btn-number">+</button>
-                                        </div>
-                                        <div className="col-3 my-auto">
-                                            <img src={hapus} className="btn-delete ms-3" alt="..." />
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Buat Pesanan */}
                 <div className="border rounded shadow-sm mb-4 p-3">

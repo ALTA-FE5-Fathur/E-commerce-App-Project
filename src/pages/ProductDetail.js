@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ProductDetail.css";
 import contoh from "../images/Contoh.png";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function ProductDetail() {
     const [detail, setDetail] = useState('');
+    // const [product_id, setProductId] = useState();
+    // const [quantity, setQuantity] = useState();
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const params = useParams();
 
@@ -21,9 +23,20 @@ function ProductDetail() {
             })
     }, [params]);
 
-    const addToCart = () => {
-        axios.post('')
-    }
+    // const addToCart = () => {
+    //     const body = {
+    //         product_id,
+    //         quantity
+    //     }
+
+    //     axios.post('http://54.179.1.246:8000/users/carts', body)
+    //         .then((data) => {
+    //             console.log(data.data.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }
 
     const makeRupiah = (rupiah) => {
         if (typeof rupiah === "number") {
@@ -46,7 +59,7 @@ function ProductDetail() {
                     <div className="col text-center">
                         <img src={contoh} className="img-fluid img-detail" alt="..." />
                         <button type="button" className="btn btn-primary w-100 my-2 rounded" onClick={() => {
-                            navigate('/cart');
+                            // addToCart();
                         }}>Add to Cart</button>
                     </div>
                     <div className="col">
