@@ -6,8 +6,8 @@ import axios from "axios";
 
 function ProductDetail() {
     const [detail, setDetail] = useState('');
-    // const [product_id, setProductId] = useState();
-    // const [quantity, setQuantity] = useState();
+    const [product_id, setProductId] = useState();
+    const [quantity, setQuantity] = useState(1);
 
     // const navigate = useNavigate();
 
@@ -23,20 +23,22 @@ function ProductDetail() {
             })
     }, [params]);
 
-    // const addToCart = () => {
-    //     const body = {
-    //         product_id,
-    //         quantity
-    //     }
+    const addToCart = () => {
+        const body = {
+            product_id,
+            quantity
+        }
 
-    //     axios.post('http://54.179.1.246:8000/users/carts', body)
-    //         .then((data) => {
-    //             console.log(data.data.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         })
-    // }
+        axios.post('http://54.179.1.246:8000/users/carts', body, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then((data) => {
+                console.log(data.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
 
     const makeRupiah = (rupiah) => {
         if (typeof rupiah === "number") {
@@ -54,12 +56,16 @@ function ProductDetail() {
 
     return (
         <div className="container">
+            
             <div className="border rounded shadow-sm my-5 px-5">
                 <div className="row my-5">
                     <div className="col text-center">
                         <img src={contoh} className="img-fluid img-detail" alt="..." />
                         <button type="button" className="btn btn-primary w-100 my-2 rounded" onClick={() => {
-                            // addToCart();
+                            setProductId(detail.id);
+                            setQuantity(1);
+                            addToCart();
+                            console.log(quantity, product_id)
                         }}>Add to Cart</button>
                     </div>
                     <div className="col">
