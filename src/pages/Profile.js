@@ -8,7 +8,7 @@ function ProfileUser() {
     const [name, setName] = useState('');
     const [hp, setHp] = useState('');
     const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
+    // const [address, setAddress] = useState('');
     // const [city, setCity] = useState('');
     // const [country, setCountry] = useState('');
     // const [zipCode, setZipCore] = useState('');
@@ -73,7 +73,7 @@ function ProfileUser() {
                         </tr>
                         <tr>
                             <td><h5>Address</h5></td>
-                            <td>{address}</td>
+                            {/* <td>{address}</td> */}
                         </tr>
                     </table>
                 </div>

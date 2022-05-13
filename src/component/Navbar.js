@@ -37,10 +37,10 @@ function NavbarComponent() {
                     </div>
                     <div className="col-2 text-end">
                         <img src={buy} alt="cart" className="cursor-klik" onClick={() => {
-                            navigate('/cart');
+                            !localStorage.getItem("token") ? navigate('/login') : navigate('/cart');
                         }} />
                         <img src={profilePicture} alt="cart" className="cursor-klik" onClick={() => {
-                            navigate('/profil');
+                            !localStorage.getItem("token") ? navigate('/login') : navigate('/profil');
                         }} />
                     </div>
                 </div>

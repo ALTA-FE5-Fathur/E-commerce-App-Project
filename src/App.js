@@ -11,6 +11,7 @@ import ProductDetail from './pages/ProductDetail';
 import Confirmation from './pages/Confirmation';
 import ProfileUser from './pages/Profile';
 import EditProfile from './pages/EditProfile';
+import Order from './pages/Order';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/detail/:id' element={<ProductDetail />} />
         <Route path='/profil' element={<ProfileUser />} />
         <Route path='/profil/edit' element={<EditProfile />} />
+        <Route path='/order' element={<Order />} />
       </Routes>
     </BrowserRouter>
   );
