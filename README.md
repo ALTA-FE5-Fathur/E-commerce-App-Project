@@ -2,6 +2,8 @@
 
 Salah satu tugas kelompok untuk menyelesaikan course di Alterra Academy https://alterra.id
 
+https://kishop-project.netlify.app/
+
 ## Overview
 
 E-commerce App Project ini memiliki fitur sebagai berikut:
